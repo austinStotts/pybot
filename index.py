@@ -4,23 +4,41 @@ from pynput.mouse import Button
 from pynput.mouse import Controller as MController
 from pynput.keyboard import Key
 from pynput.keyboard import Controller as KController
+from threading import Timer
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 m = MController()
 k = KController()
 
-print("going to https://en.wikipedia.org/wiki/Markus_Persson")
-print(m.position)
+hours = 2 # time for kakera claim to reset
+command = "$im ram" # mudae command to use
 
-# make a new tab
-m.position = (6, 8)
-m.click(Button.left, 1)
-with k.pressed(Key.ctrl):
-  k.press('t')
 
-# select the search bar
-m.position = (177, 64)
-m.click(Button.left, 1)
+def collect_mk():
+  print("Collecting Kak...")
 
-# type name of website
-k.type('https://en.wikipedia.org/wiki/Markus_Persson')
-k.press(Key.enter)
+
+  # move mouse to message bar & click
+  m.position = (491, 1360)
+  m.click(Button.left, 1)
+
+  # type command and press enter
+  k.type(command)
+  k.press(Key.enter)
+
+  # move mouse to react location
+  m.position = (497, 1286)
+
+  # wait for reaction to apear and click
+  time.sleep(2)
+  m.click(Button.left, 1)
+
+
+
+
+# instantiate scheduler and start the timer
+scheduler = BlockingScheduler()
+scheduler.add_job(collect_mk, 'interval', seconds=5) # minutes=((hours*60)+1)
+print("\nSteves super duper Kak machine! v1.0.0")
+print("will collect Kakera using $mk in " + str(hours) + " hours...")
+scheduler.start()
