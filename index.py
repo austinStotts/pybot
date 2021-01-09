@@ -26,8 +26,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 # * * * * * * * * * * * * * * * * *
 
 
-m = MController()
-k = KController()
+
 
 # SET THESE VARIABLES BEFORE RUNNING PROGRAM
 hours = 2 # time interval
@@ -37,9 +36,11 @@ command = "$mk" # what to be typed
 def collect_mk():
   print("Collecting Kak...")
 
+  m = MController()
+  k = KController()
 
   # move mouse to message bar & click
-  m.position = (491, 1360)
+  m.position = (-1418, 1339)
   m.click(Button.left, 1)
 
   # type command and press enter
@@ -47,7 +48,7 @@ def collect_mk():
   k.press(Key.enter)
 
   # move mouse to react location
-  m.position = (497, 1286)
+  m.position = (-1418, 1265)
 
   # wait for reaction to apear and click
   time.sleep(2)
@@ -55,7 +56,7 @@ def collect_mk():
 
 # instantiate scheduler and start the timer
 scheduler = BlockingScheduler()
-scheduler.add_job(collect_mk, 'interval', minutes=((hours*60)+1))
+scheduler.add_job(collect_mk, 'interval', minutes=1) # minutes=((hours*60)+1)
 print("\nSteve's super duper Kak machine! v1.0.0")
 print("will collect Kakera using $mk every " + str(hours) + " hours...")
 print("")
