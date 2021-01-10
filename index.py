@@ -56,8 +56,8 @@ def collect_mk():
 
 # instantiate scheduler and start the timer
 scheduler = BlockingScheduler()
-scheduler.add_job(collect_mk, 'interval', minutes=1) # minutes=((hours*60)+1)
-print("\nSteve's super duper Kak machine! v1.0.0")
+scheduler.add_job(collect_mk, 'interval', minutes=((hours*60)+1)) # minutes=((hours*60)+1)
+print("\nSteve's super duper Kak machine! v1.0.2")
 print("will collect Kakera using $mk every " + str(hours) + " hours...")
 print("")
 collect_mk()
